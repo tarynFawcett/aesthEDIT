@@ -1,0 +1,147 @@
+
+#container {
+	width:1024px;
+	height:768px;
+	/*height:1300px;*/
+	background-image:url(../images/texture.png);
+	background-color:#000000;
+	margin-right:auto;
+	margin-left:auto;
+	font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
+	text-decoration:none;
+}
+
+header {
+	height:78px;
+	width:1024px;
+}
+
+#logo {
+	height:55px;
+	width:305px;
+	background-image:url(../images/logo.png);
+	/*display:block;*/
+	margin-left:370px;
+	margin-right:auto;
+	float:left;
+	margin-top:20px;
+	position:absolute;
+}
+
+#myCanvas{
+	/*float:left;*/
+	width:602px;
+	/*height:424px*/
+	display:block;
+	position:absolute;
+	margin-left:21px;
+	margin-top:20px;
+	background-color:#cccccc;
+}
+
+#imageBox {
+	width:602px;
+	height:424px;
+	border:20px solid #000000;
+	border-bottom:40px #000000 solid;
+	background-color:#FFFFFF;
+	/*float:left;*/
+	margin-left:auto;
+	margin-right:auto;
+	block:block;
+	margin-top:30px;
+	box-shadow:0px 0px 20px #666666;
+}
+
+#something {
+	display:none;
+}
+
+#buttonDiv {
+	background-image: url("../images/button.png");
+    box-shadow: 0 0 10px #000000;
+    height: 70px;
+    margin-left:auto;
+	margin-right:auto;
+	display:none;
+    margin-top: 45px;
+    width: 222px;
+}
+
+#gotIt {
+	background-image:url("../images/button.png");
+	box-shadow: 0 0 10px #000000;
+    height: 70px;
+    margin-left:auto;
+	margin-right:auto;
+	display:none;
+    margin-top:155px;
+    width: 222px;
+}
+
+#buttonDiv a, #gotIt a {
+	text-decoration:none;
+}
+
+.buttonText {
+	color:#FFFFFF;
+	font-size:24px;
+	text-align:center;
+	line-height:70px;
+	width:222px;
+	text-shadow:-2px -2px #0e0e0e;
+	position:absolute;
+	text-decoration:none;
+}
+
+.myButtonHolder{
+	width:50px;
+	height:50px;
+	background-color:#666;
+	margin-bottom:30px;
+}
+
+.myButton{
+	width:222px;
+	height:70px;
+	display:block;
+}
+
+#firstAlert {
+	height:688px;
+	width:1024px;
+	background-image:url(../images/texture.png);
+	background-color:#000000;
+	opacity:.95;
+	margin-left:auto;
+	margin-right:auto;
+	display:none;
+	float:left;
+}
+
+#instructions {
+	width:298px;
+	margin-left:365px;
+	padding-top:170px;
+	font-size:30px;
+	color:#FFFFFF;
+	text-align:center;
+}
+
+#screenShot {
+	margin-top:100px;
+	font-size:16px;
+	width:372px;
+	margin-left:340px;
+	color:#999999;
+	text-align:left;
+}
+
+
+
+
+
+
+
+
+

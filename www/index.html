@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+    
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width" / >
+        <title>aesthEDIT Final</title>
+        
+        <link href="css/reset.css" rel="stylesheet" type="text/css" />
+        <link href="css/styles.css" rel="stylesheet" type="text/css" />
+        
+        
+        <script type="text/javascript" src="cordova-2.6.0.js"></script>
+        <script src="js/jquery-1.8.2.min.js"></script> <!--this one is needed for the drawing to work-->
+        <script src="js/jquery.mobile.custom.min.js" type="text/javascript"></script>
+		<script type="text/javascript" charset="utf-8" src="js/Canvas2ImagePlugin.js"></script>
+		<script src="js/jquery.easing.1.3.js" type="text/javascript" ></script>
+        
+        
+        <script type="text/javascript" src="phonegap.js"></script>
+        
+ 		<script type="text/javascript" src="js/farbtastic.js"></script>
+ 		<link rel="stylesheet" href="css/farbtastic.css" type="text/css" />
+    
+    </head>
+
+
+    <body>
+    
+    	<div id="container">
+        
+            <header>
+            	<div id="logo"></div>
+            </header>
+            
+            <section id="leftCol">
+            
+            	<div id="imageBox">
+                	<canvas width="602" height="424" id="myCanvas"></canvas>
+                    <div id="beginningImage"></div>
+                </div>
+                
+                <div id="uploadButton" class="button"><a id="myButton" href="#"><p class="buttonText">UPLOAD IMAGE</p></a></div>
+                <div id="saveButton" class="button"><a id="saveImage" href="#"><p class="buttonText">SAVE IMAGE</p></a></div>	
+            
+            </section>
+            
+            <section id="rightCol">
+            
+            	<div id="colorWheel">
+                <div id="picker"></div>
+                	<form action="" style="width: 401px;">
+						<div class="form-item"><input type="text" id="color" name="color" value="#00ffff" /></div>
+					</form>
+                </div>
+                
+                <div id="eraseRid"></div>
+                
+                <div id="colorID"></div>
+                
+                <ul id="brushes">
+                	<li id="tiny" class="brush deselected"><div id="brushTiny"></div></li>
+                    <li id="small" class="brush deselected"><div id="brushSmall"></div></li>
+                    <li id="medium" class="brush deselected"><div id="brushMedium"></div></li>
+                    <li id="large" class="brushRowEnd deselected"><div id="brushLarge"></div></li>
+                </ul>              
+                
+                <div id="clearButton" class="button"><a id="unloadButton" href="#"><p class="buttonText">CLEAR IMAGE</p></a></div>
+            
+            </section>
+    
+    	</div>
+        
+        <script>
+			var canvas;
+			var ctx;
+				
+			var imageLoaded = false;
+			var imageObject = new Image();
+			
+			var mouseIsDown = false;
+			
+			var objectArray = new Array();
+			var radiusArray = new Array();
+			
+			var activeObject = null;
+			
+			objectArray[0]="tiny";
+	
+			objectArray[1]="small";
+	
+			objectArray[2]="medium";
+	
+			objectArray[3]="large";
+			
+			radiusArray[0]=3;
+	
+			radiusArray[1]=10;
+	
+			radiusArray[2]=20;
+	
+			radiusArray[3]=30;
+			
+			var radius = radiusArray[1];
+				
+			$(document).ready(function() {
+				
+				document.addEventListener('deviceready', onDeviceReady, false);
+
+				canvas = document.getElementById('myCanvas');
+				
+				ctx = canvas.getContext('2d');
+				ctx.lineCap="round";
+				
+				$('#demo').hide();
+				$('#picker').farbtastic('#color');
+				
+				activeObject = "small";
+				$("#"+activeObject).removeClass("deselected").addClass("selected");
+				
+        	});		
+			
+			window.onload = function() {
+				var input = document.getElementById('input');
+			};
+			
+			function onDeviceReady() {
+				//alert('Cordova is ready!');
+			}
+			
+			$('#myButton').on('tap', function(event){
+				useExistingPhoto(event);
+				event.preventDefault();
+			});
+			
+			$('#myButton2').on('tap', function(event){
+				//alert("My button 2 tapped!");
+				saveImage();
+				event.preventDefault();
+			});
+			
+			function saveImage(){
+				var imageData = canvas.toDataURL();
+				window.location =('index2.html');
+			};
+			
+			// use an existing photo from the  library:
+			function useExistingPhoto(e) {
+			  	capture(Camera.PictureSourceType.SAVEDPHOTOALBUM);
+			};
+			
+			// capture either new or existing photo:
+			function capture(sourceType) {
+			  	navigator.camera.getPicture(onCaptureSuccess, onCaptureFail, {
+				destinationType: Camera.DestinationType.FILE_URI,
+				sourceType: sourceType,
+				targetWidth: 602,
+				targetHeight: 624,
+				correctOrientation: true,
+				
+			  });
+			};
+			
+			// if photo is captured successfully, then upload to server:
+			function onCaptureSuccess(imageURI) {
+				imageObject.src = imageURI;				
+			};
+			
+			imageObject.onload = function() {
+				ctx.drawImage(imageObject, 0, 0);
+			};
+			
+			// there was an error capturing the photo:
+			function onCaptureFail(message) {
+			  alert("Failed because: " + message);
+			};	
+                
+			//event handler
+			$('#unloadButton').on('tap', function(event){
+				//alert("unload!");
+				event.preventDefault();
+				//event.stopPropagation();
+				unloadImage();
+			});
+			
+			function unloadImage(){
+				imageLoaded = false;
+				clearCanvas();
+			};
+			   
+            function clearCanvas(){
+					ctx.clearRect( 0, 0, ctx.canvas.width, ctx.canvas.height);
+			};
+				
+			/////////////////////////////---DRAWING CODE---/////////////////////////					
+				
+			//event handler
+			$('#myCanvas').on('vmousedown', function(event){
+				event.preventDefault();
+				mouseIsDown = true;
+				
+				ctx.strokeStyle = drawingColor;
+				ctx.lineWidth = radius;
+				ctx.beginPath();
+				ctx.moveTo(event.pageX - $(this).offset().left, event.pageY - $(this).offset().top); //event.pageX returns the value of where the event occured.  Where ever the mouse went down.  Subtract from the distance from the left side of this object.
+				ctx.stroke();
+			});		
+			
+			//event handler
+			$('#myCanvas').on('vmousemove', function(event){
+				event.preventDefault();
+				
+				if(mouseIsDown == true){ //recognizes when the mouse is clicked down or just hovering
+					ctx.lineTo(event.pageX - $(this).offset().left, event.pageY - $(this).offset().top);
+					ctx.stroke();
+				};
+				
+			});
+			
+			$('#myCanvas').on('vmouseup', function(event){
+				event.preventDefault();
+				mouseIsDown = false;
+			});
+			
+			//////////////////////////////---changing drawing tool size---//////////////////
+			
+			$(".brush, .brushRowEnd").on('tap', function(event){
+				determineActiveObject($(this).attr('id'));
+			});
+			                 
+			function changeRadius(){
+		
+				for (i=0;i<objectArray.length;i++) {
+					
+					if(objectArray[i] == activeObject){
+						
+						radius = radiusArray[i];
+						
+					} else {
+						
+						// do nothing.
+						
+					};
+					
+				};
+				
+			};
+			
+			function determineActiveObject(clickedObject){
+			
+			for (i=0;i<objectArray.length;i++) {
+			
+				if(objectArray[i] == clickedObject){
+					
+					$("#"+objectArray[i]).removeClass("deselected").addClass("selected");	   
+					
+				} else {
+					
+					if(objectArray[i] == activeObject){
+					
+						$("#"+objectArray[i]).removeClass("selected").addClass("deselected");	
+					
+						};
+					
+					  };
+				
+				};
+			
+				activeObject = clickedObject;
+				
+				changeRadius();
+			};
+		
+		function getQueryParam(parameter, qs) {
+			qs = "&" + qs;
+			var p = escape(unescape(parameter));
+			var regex = new RegExp("[?&]" + p + "=(?:([^&]*))?", "i");
+		   
+			var match = regex.exec(qs);
+			var value = "";
+			if (match != null) {
+				value = match[1];
+			};
+			return value;
+		};
+		
+		$('#saveImage').on('tap', function(event){
+			event.preventDefault();
+			sendImage();
+			//return false;
+		});
+		
+		function sendImage(){
+			var imageData = canvas.toDataURL("image/png");
+			window.location.href = "index2.html?image="+imageData;
+		};
+            
+    	</script>
+        
+    </body>
+
+</html>

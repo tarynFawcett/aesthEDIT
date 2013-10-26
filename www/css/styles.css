@@ -1,0 +1,233 @@
+#container {
+	width:1024px;
+	height:768px;
+	background-image:url(../images/texture.png);
+	background-color:#000000;
+	margin-right:auto;
+	margin-left:auto;
+	font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
+	text-decoration:none;
+}
+
+
+/* MOBILE STYLES */
+@media only screen and (max-width: 767px){
+	
+}
+
+/* TABLET STYLES */
+@media only screen and (min-width: 768px) and (max-width: 977px){
+	
+}
+
+
+/* DESKTOP STYLES */
+@media only screen and (min-width: 978px){
+	
+}
+
+header {
+	height:78px;
+	width:1024px;
+}
+
+#logo {
+	height:55px;
+	width:305px;
+	background-image:url(../images/logo.png);
+	margin-left:23px;
+	margin-top:23px;
+	float:left;
+}
+
+#leftCol {
+	width:642px;
+	height:671px;
+	margin-left:23px;
+	float:left;
+}
+
+#imageBox {
+	width:642px;
+	height:484px;
+	background-color:#000000;
+	float:left;
+	margin-top:30px;
+	box-shadow:0px 0px 20px #666666;
+}
+
+#beginningImage {
+	background-image:url(../images/uploadImageScreen.png);
+	height:424px;
+	width:603px;
+	display:inline;
+}
+
+#myCanvas{
+	background-color:#bbbbbb;
+	display:block; /*most elements are neither inline or block level elements, need to establish*/
+	margin-top:20px;
+	margin-left:auto; /*property only assigned to a block level element*/
+	margin-right:auto;
+}
+
+#uploadButton {
+	width:222px;
+	height:70px;
+	background-image:url(../images/button.png);
+	box-shadow:0px 0px 10px #000000;
+	margin-left:84px;
+	margin-top:45px;
+	float:left;
+}
+
+#saveButton {
+	width:222px;
+	height:70px;
+	background-image:url(../images/button.png);
+	box-shadow:0px 0px 20px #000000;
+	float:left;
+	margin-left:30px;
+	margin-top:45px;
+}
+
+.button {
+	margin-bottom:30px;
+}
+
+.button a {
+	text-decoration:none;	
+}
+
+.buttonText {
+	color:#FFFFFF;
+	font-size:24px;
+	text-align:center;
+	line-height:70px;
+	text-shadow:-2px -2px #0e0e0e;
+}
+
+#rightCol {
+	width:359px;
+	height:671px;
+	float:left;
+}
+
+#colorWheel {
+	height:306px;
+	weight:306px;
+	margin-top:30px;
+	margin-left:30px;
+}
+
+#clearButton {
+	width:222px;
+	height:70px;
+	background-image:url(../images/button.png);
+	box-shadow:0px 0px 15px #000000;
+	float:left;
+	margin-left:72px;
+	margin-right:0px;
+	margin-top:37px;
+}
+
+#colorID {
+	height:72px;
+	width:161px;
+	margin-top:20px;
+	margin-left:198px;
+}
+
+#brushes li{
+	height:72px;
+	width:72px;
+	display:inline;
+	float:left;
+}
+
+#tiny, #small, #medium, #large {
+	height:72px;
+	width:72px;
+	float:left;	
+}
+
+#brushes {
+	margin-top:23px;
+	margin-left:21px;
+}
+
+.brush {
+	margin-right:10px;
+	height:72px;
+	width:72px;
+	float:left;	
+}
+
+.brushRowEnd {
+	margin-right:0px;
+	height:72px;
+	width:72px;
+	float:left;	
+}
+
+#brushTiny {
+	width: 6px;
+	height: 6px;
+	background-color:#999999;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	margin-top:34px;
+	margin-left:33px;
+	overflow:hidden;
+}
+
+#brushSmall {
+	width: 14px;
+	height: 14px;
+	background: #999999;
+	-moz-border-radius: 7px;
+	-webkit-border-radius: 7px;
+	border-radius: 7px;
+	margin-top:30px;
+	margin-left:29px;
+}
+
+#brushMedium {
+	width: 26px;
+	height: 26px;
+	background: #999999;
+	-moz-border-radius: 13px;
+	-webkit-border-radius: 13px;
+	border-radius: 13px;
+	margin-top:24px;
+	margin-left:23px;
+	overflow:hidden;
+}
+
+#brushLarge {
+	width: 40px;
+	height: 40px;
+	background: #999999;
+	-moz-border-radius: 20px;
+	-webkit-border-radius: 20px;
+	border-radius: 20px;
+	margin-top:16px;
+	margin-left:16px;
+}
+
+.selected {
+	background-image:url(../images/button_selected.png);
+}
+
+.deselected {
+	background-image:url(../images/button_deselected.png);
+}
+
+.myButtonHolder{
+	
+}
+
+.myButton{
+	
+}
